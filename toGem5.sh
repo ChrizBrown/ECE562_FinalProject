@@ -5,6 +5,9 @@ GEM5_PATH="../gem5/"
 PROJECT_PATH=$(pwd)/
 BACKUP_PATH=$(pwd)/Backup/
 
+timestamp() {
+  date +"%Y-%m-%d_%H-%M-%S"
+}
 
 CACHE_FILE=$GEM5_PATH"src/mem/cache/Cache.py"
 RP_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/ReplacementPolicies.py"
@@ -18,10 +21,10 @@ SLRU_CC_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/slru_rp.cc"
 # file $SLRU_CC_FILE
 
 # Backup old files
-cp $CACHE_FILE      $BACKUP_PATH
-cp $RP_FILE         $BACKUP_PATH
-cp $SLRU_HH_FILE    $BACKUP_PATH
-cp $SLRU_CC_FILE    $BACKUP_PATH
+cp $CACHE_FILE      $BACKUP_PATH/$(timestamp)_Cache.py
+cp $RP_FILE         $BACKUP_PATH/$(timestamp)_ReplacementPolicies.py
+cp $SLRU_HH_FILE    $BACKUP_PATH/$(timestamp)_slru_rp.hh
+cp $SLRU_CC_FILE    $BACKUP_PATH/$(timestamp)_slru_rp.cc
 
 cp $PROJECT_PATH/Cache.py               $CACHE_FILE
 cp $PROJECT_PATH/ReplacementPolicies.py $RP_FILE
