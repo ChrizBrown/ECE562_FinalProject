@@ -1,7 +1,7 @@
-#SET TO YOUR PERSONAL GEM5 PATH
+#SET TO YOUR PERSONAL GEM5 PATH BY MODIFYING THE CONFIG FILE
 GEM5_PATH=$(cat gem5path.config)
 
-  if [[ ! -d $GEM5_PATH ]]
+  if [[ ! -f $GEM5_PATH"build/ARM/gem5.opt" ]]
   then
     echo "Please set the GEM5 path correctly!"
     exit 1
@@ -11,9 +11,7 @@ GEM5_PATH=$(cat gem5path.config)
 PROJECT_PATH=$(pwd)/
 BACKUP_PATH=$(pwd)/Backup/
 
-timestamp() {
-  date +"%Y-%m-%d_%H-%M-%S"
-}
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
 CACHE_FILE=$GEM5_PATH"src/mem/cache/Cache.py"
 RP_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/ReplacementPolicies.py"
@@ -29,11 +27,12 @@ SLRU_CC_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/slru_rp.cc"
 # file $SLRU_CC_FILE
 
 # Backup old files
-cp $CACHE_FILE      $BACKUP_PATH/$(timestamp)_Cache.py
-cp $RP_FILE         $BACKUP_PATH/$(timestamp)_ReplacementPolicies.py
-cp $SCON_FILE       $BACKUP_PATH/$(timestamp)_SConscript.py
-cp $SLRU_HH_FILE    $BACKUP_PATH/$(timestamp)_slru_rp.hh
-cp $SLRU_CC_FILE    $BACKUP_PATH/$(timestamp)_slru_rp.cc
+mkdir -p $BACKUP_PATH/$TIMESTAMP
+cp $CACHE_FILE      $BACKUP_PATH$TIMESTAMP/"Cache.py"
+cp $RP_FILE         $BACKUP_PATH$TIMESTAMP/"ReplacementPolicies.py"
+cp $SCON_FILE       $BACKUP_PATH$TIMESTAMP/"SConscript.py"
+cp $SLRU_HH_FILE    $BACKUP_PATH$TIMESTAMP/"slru_rp.hh"
+cp $SLRU_CC_FILE    $BACKUP_PATH$TIMESTAMP/"slru_rp.cc"
 
 cp $PROJECT_PATH/Cache.py               $CACHE_FILE
 cp $PROJECT_PATH/ReplacementPolicies.py $RP_FILE
