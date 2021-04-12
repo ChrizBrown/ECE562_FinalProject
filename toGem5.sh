@@ -30,7 +30,7 @@ SLRU_CC_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/slru_rp.cc"
 mkdir -p $BACKUP_PATH/$TIMESTAMP
 cp $CACHE_FILE      $BACKUP_PATH$TIMESTAMP/"Cache.py"
 cp $RP_FILE         $BACKUP_PATH$TIMESTAMP/"ReplacementPolicies.py"
-cp $SCON_FILE       $BACKUP_PATH$TIMESTAMP/"SConscript.py"
+cp $SCON_FILE       $BACKUP_PATH$TIMESTAMP/"SConscript"
 cp $SLRU_HH_FILE    $BACKUP_PATH$TIMESTAMP/"slru_rp.hh"
 cp $SLRU_CC_FILE    $BACKUP_PATH$TIMESTAMP/"slru_rp.cc"
 
@@ -39,5 +39,6 @@ cp $PROJECT_PATH/ReplacementPolicies.py $RP_FILE
 cp $PROJECT_PATH/SConscript             $SCON_FILE
 cp $PROJECT_PATH/slru_rp.hh             $SLRU_HH_FILE
 cp $PROJECT_PATH/slru_rp.cc             $SLRU_CC_FILE
+cp $PROJECT_PATH/SConscript             $SCON_FILE
 
 echo "Done transferring files to GEM5!"
