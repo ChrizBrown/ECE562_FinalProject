@@ -35,7 +35,7 @@
 
 #include "params/SLRURP.hh"
 
-#define PROT_SIZE = 10
+#define PROT_SIZE 10
 
 SLRURP::SLRURP(const Params *p)
     : BaseReplacementPolicy(p)
@@ -62,7 +62,7 @@ SLRURP::touch(const std::shared_ptr<ReplacementData>& replacement_data) const
         replacement_data)->lastTouchTick = curTick();
     if(std::static_pointer_cast<SLRUReplData>(
        replacement_data)->protect == 0) {
-           std::static_pointer_cast<SLRUReplData>(replacement_data)->protect == 1; //FIXME is this called when a new blocks is placed in cache?
+           std::static_pointer_cast<SLRUReplData>(replacement_data)->protect = 1; //FIXME is this called when a new blocks is placed in cache?
     }
 
 }
@@ -98,9 +98,9 @@ SLRURP::getVictim(const ReplacementCandidates& candidates) const
             }
         }
         //If protected segment is too large, move protected seg LRU block to probationary seg MRU block
-        if(std::static_pointer_cast<SLRUReplData>(candidate->replacementData)->protect == 1 && number_protected > PROT_SIZE){
+        if(std::static_pointer_cast<SLRUReplData>(demote->replacementData)->protect == 1 && number_protected > PROT_SIZE){
             std::static_pointer_cast<SLRUReplData>(demote->replacementData)->protect = 0; //Move block to probationary segment
-            std::static_pointer_cast<SLRUReplData>(replacement_data)->lastTouchTick = curTick();//Make MRU
+            std::static_pointer_cast<SLRUReplData>(demote->replacementData)->lastTouchTick = curTick();//Make MRU
             number_protected--; //Update the number protected (for while statement)
         }
     } while (number_protected > PROT_SIZE);
