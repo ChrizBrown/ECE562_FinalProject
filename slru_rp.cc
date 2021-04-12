@@ -33,7 +33,7 @@
 #include <cassert>
 #include <memory>
 
-#include "params/LRURP.hh"
+#include "params/SLRURP.hh"
 
 #define PROT_SIZE 10
 
