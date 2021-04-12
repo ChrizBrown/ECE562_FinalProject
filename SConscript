@@ -40,4 +40,5 @@ Source('mru_rp.cc')
 Source('random_rp.cc')
 Source('second_chance_rp.cc')
 Source('tree_plru_rp.cc')
-Source('weighted_lru_rp.cc')
+#uncomment if linking error
+#Source('weighted_lru_rp.cc')
