@@ -1,7 +1,7 @@
 #SET TO YOUR PERSONAL GEM5 PATH BY MODIFYING THE CONFIG FILE
 GEM5_PATH=$(cat gem5path.config)
 
-  if [[ ! -f $GEM5_PATH"build/ARM/gem5.opt" ]]
+  if [[ ! -d $GEM5_PATH ]]
   then
     echo "Please set the GEM5 path correctly!"
     exit 1
