@@ -1,5 +1,5 @@
 #SET TO YOUR PERSONAL GEM5 PATH
-GEM5_PATH="../gem5/"
+GEM5_PATH=$(cat gem5path.config)
 
   if [[ ! -d $GEM5_PATH ]]
   then
