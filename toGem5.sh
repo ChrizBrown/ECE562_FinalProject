@@ -1,6 +1,12 @@
 #SET TO YOUR PERSONAL GEM5 PATH
 GEM5_PATH="../gem5/"
 
+  if [[ ! -d $GEM5_PATH ]]
+  then
+    echo "Please set the GEM5 path correctly!"
+    exit 1
+  fi
+
 # DO NOT CHANGE ANYTHING AFTER THIS LINE
 PROJECT_PATH=$(pwd)/
 BACKUP_PATH=$(pwd)/Backup/
