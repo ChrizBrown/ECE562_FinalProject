@@ -11,18 +11,21 @@ timestamp() {
 
 CACHE_FILE=$GEM5_PATH"src/mem/cache/Cache.py"
 RP_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/ReplacementPolicies.py"
+SCON_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/SConscript"
 SLRU_HH_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/slru_rp.hh"
 SLRU_CC_FILE=$GEM5_PATH"src/mem/cache/replacement_policies/slru_rp.cc"
 
 
 # file $CACHE_FILE
 # file $RP_FILE
+# file $SCON_FILE
 # file $SLRU_HH_FILE
 # file $SLRU_CC_FILE
 
 # Backup old files
 cp $CACHE_FILE      $BACKUP_PATH/$(timestamp)_Cache.py
 cp $RP_FILE         $BACKUP_PATH/$(timestamp)_ReplacementPolicies.py
+cp $SCON_FILE       $BACKUP_PATH/$(timestamp)_SConscript.py
 cp $SLRU_HH_FILE    $BACKUP_PATH/$(timestamp)_slru_rp.hh
 cp $SLRU_CC_FILE    $BACKUP_PATH/$(timestamp)_slru_rp.cc
 
@@ -31,4 +34,4 @@ cp $PROJECT_PATH/ReplacementPolicies.py $RP_FILE
 cp $PROJECT_PATH/slru_rp.hh             $SLRU_HH_FILE
 cp $PROJECT_PATH/slru_rp.cc             $SLRU_CC_FILE
 
-echo "Done!"
+echo "Done transferring files to GEM5!"
