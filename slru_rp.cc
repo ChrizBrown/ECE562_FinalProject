@@ -24,8 +24,6 @@
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * Authors: Daniel Carvalho
  */
 
 #include "mem/cache/replacement_policies/slru_rp.hh"
@@ -34,6 +32,7 @@
 #include <memory>
 
 #include "params/SLRURP.hh"
+#include "sim/core.hh"
 
 #define PROT_SIZE 10
 
@@ -51,7 +50,6 @@ const
         replacement_data)->lastTouchTick = Tick(0);
     std::static_pointer_cast<SLRUReplData>(
         replacement_data)->protect = 0;
-
 }
 
 void
@@ -61,10 +59,9 @@ SLRURP::touch(const std::shared_ptr<ReplacementData>& replacement_data) const
     std::static_pointer_cast<SLRUReplData>(
         replacement_data)->lastTouchTick = curTick();
     if(std::static_pointer_cast<SLRUReplData>(
-       replacement_data)->protect == 0) {
-           std::static_pointer_cast<SLRUReplData>(replacement_data)->protect = 1; //FIXME is this called when a new blocks is placed in cache?
+        replacement_data)->protect == 0) {
+            std::static_pointer_cast<SLRUReplData>(replacement_data)->protect = 1; //FIXME is this called when a new blocks is placed in cache?
     }
-
 }
 
 void
