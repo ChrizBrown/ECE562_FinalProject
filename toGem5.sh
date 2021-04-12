@@ -36,6 +36,7 @@ cp $SLRU_CC_FILE    $BACKUP_PATH$TIMESTAMP/"slru_rp.cc"
 
 cp $PROJECT_PATH/Cache.py               $CACHE_FILE
 cp $PROJECT_PATH/ReplacementPolicies.py $RP_FILE
+cp $PROJECT_PATH/SConscript             $SCON_FILE
 cp $PROJECT_PATH/slru_rp.hh             $SLRU_HH_FILE
 cp $PROJECT_PATH/slru_rp.cc             $SLRU_CC_FILE
 
