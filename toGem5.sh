@@ -1,4 +1,18 @@
+
+#!/bin/bash
+
+while getopts p: flag
+do
+    case "${flag}" in
+        p) protectionParam=${OPTARG};;
+    esac
+done
+echo "User will be building with protection argument: $protectionParam"
+
+sed -i s/"#define PROT_SIZE".*/"#define PROT_SIZE $protectionParam"/ slru_rp.cc
 #SET TO YOUR PERSONAL GEM5 PATH BY MODIFYING THE CONFIG FILE
+
+
 GEM5_PATH=$(cat gem5path.config)
 
   if [[ ! -d $GEM5_PATH ]]
