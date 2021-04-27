@@ -44,7 +44,7 @@ L1iAssoc=1
 L1dSize=32kB
 L1dAssoc=1
 cachelineSize=64
-maxInst=10
+maxInst=$maxInsts
 testName=MCF_
 for cacheLineSize in ${blockSizes[@]};
 do
