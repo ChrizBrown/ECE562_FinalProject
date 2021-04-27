@@ -34,6 +34,7 @@
 #include "params/SLRURP.hh"
 #include "sim/core.hh"
 
+//Size of the protected segment in blocks(lines)
 #define PROT_SIZE 10
 
 SLRURP::SLRURP(const Params *p)
@@ -51,7 +52,7 @@ const
     std::static_pointer_cast<SLRUReplData>(
         replacement_data)->protect = 0;
 }
-
+//Touch an entry to update its replacement data.
 void
 SLRURP::touch(const std::shared_ptr<ReplacementData>& replacement_data) const
 {
@@ -60,10 +61,10 @@ SLRURP::touch(const std::shared_ptr<ReplacementData>& replacement_data) const
         replacement_data)->lastTouchTick = curTick();
     if(std::static_pointer_cast<SLRUReplData>(
         replacement_data)->protect == 0) {
-            std::static_pointer_cast<SLRUReplData>(replacement_data)->protect = 1; //FIXME is this called when a new blocks is placed in cache?
+            std::static_pointer_cast<SLRUReplData>(replacement_data)->protect = 1; 
     }
 }
-
+//reset Used when an entry is inserted. Sets its last touch tick as the current tick.
 void
 SLRURP::reset(const std::shared_ptr<ReplacementData>& replacement_data) const
 {
@@ -71,9 +72,17 @@ SLRURP::reset(const std::shared_ptr<ReplacementData>& replacement_data) const
     std::static_pointer_cast<SLRUReplData>(
         replacement_data)->lastTouchTick = curTick();
     std::static_pointer_cast<SLRUReplData>(
-        replacement_data)->protect = 0;//FIXME What should this be?
+        replacement_data)->protect = 0;
 }
-
+/** This is where the majority of the action happens. The getVictim function choses which block to clear when the simulation asks for more space.
+*   I have modified the LRU class so that first we sort all of our memory blocks into protected and not protected. 
+*   -The number of blocks marked as protected are counted (this is necessary since this is basically the only function that has all the blocks available to
+*       compare, prior to this point the number of blocks markes as protected could be very large since we do not check against the limit when marking as
+*       protected.)
+*   -If the number of blocks marked as protected is greater than PROT_SIZE then the least recently used blocks in that were marked as protected are
+*       no longer marked as protected and have their used timers reset so that they are the most recently used in the probationary block
+*   -The least recently used block that is not marked as protected is selected as the victim
+*/
 ReplaceableEntry*
 SLRURP::getVictim(const ReplacementCandidates& candidates) const
 {
