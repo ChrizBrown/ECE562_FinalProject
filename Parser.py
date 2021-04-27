@@ -3,7 +3,7 @@ import csv
 
 m5out = <full folder path of stats> #Ex."Z:\James\Documents\Masters\ECE562\Project\SimulationResults\\2021-04-11_22-11-11\stats"
 myLines = []
-csvFile = m5out + "<Name the CSV file>.csv" #Ex. ("Z:\James\Documents\Masters\ECE562\Project\SimulationResults\\2021-04-11_22-11-11\stats\\test2csv.csv")
+csvFile = m5out + "output.csv" #Ex. ("Z:\James\Documents\Masters\ECE562\Project\SimulationResults\\2021-04-11_22-11-11\stats\\test2csv.csv")
 
 fieldNames = ['File Name', \
               #'% Branches', \
