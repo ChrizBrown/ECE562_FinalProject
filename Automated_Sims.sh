@@ -1,5 +1,6 @@
 #!/bin/bash
 maxInsts=1000000
+
 while getopts i:j: flag
 do
     case "${flag}" in
@@ -44,8 +45,12 @@ L1iAssoc=1
 L1dSize=32kB
 L1dAssoc=1
 cachelineSize=64
+<<<<<<< HEAD
+=======
 maxInst=$maxInsts
+>>>>>>> 486d4ad5b580be57c7aace469507412215cce966
 testName=MCF_
+
 for cacheLineSize in ${blockSizes[@]};
 do
     for cacheVar in ${cacheSizes[@]};
@@ -53,9 +58,9 @@ do
         for sims in ${simulations[@]};
         do
             echo "*********************************$benchName***************************************"
-            $GEM5_PATH"build/ARM/gem5.opt"\
-                "--stats-file="$sims"_""$cacheVar""kB_""$cacheLineSize""bs_pr_SLRU.txt"\
-                --dump-config="$sims""_""$cacheVar""kB_""$cacheLineSize""bs_pr_SLRU.ini"\
+            echo   $GEM5_PATH"build/ARM/gem5.opt"\
+                "--stats-file="$sims"_""$cacheVar""kB_""$cacheLineSize""bs_pr_LRU.txt"\
+                --dump-config="$sims""_""$cacheVar""kB_""$cacheLineSize""bs_pr_LRU.ini"\
                 $GEM5_PATH"configs/example/se.py" \
                 --caches\
                 --l1i_size=${cacheSizes[y]}"kB"\
@@ -81,8 +86,10 @@ declare -a blockIterations=(1 2 2 2 1)
 
 x=0
 y=0
+clear
 for num in ${blockIterations[@]};
 do
+
     sed -i s/"#define PROT_SIZE".*/"#define PROT_SIZE $protectionParam"/ slru_rp.cc
     cp $CACHE_FILE      $BACKUP_PATH$TIMESTAMP/"Cache.py"
     cp $RP_FILE         $BACKUP_PATH$TIMESTAMP/"ReplacementPolicies.py"
@@ -101,10 +108,11 @@ do
 
     for ((i=1;i<=${blockIterations[x]};i++))
     do
+        printf '%d///////////////////////////////////////////////////////////////////////////////////////////\n' $x
         for sims in ${simulations[@]};
         do
             echo "*************************$benchName${cacheSizes[y]}*************************************"
-            $GEM5_PATH"build/ARM/gem5.opt"\
+                $GEM5_PATH"build/ARM/gem5.opt"\
                 "--stats-file="$sims"_""${cacheSizes[y]}""kB_""${blockSizes[y]}""bs_""${numBlocks[y]}""pr_SLRU.txt"\
                 --dump-config="$sims""_""${cacheSizes[y]}""kB_""${blockSizes[y]}""bs_""${numBlocks[y]}""pr_SLRU.ini"\
                 $GEM5_PATH"configs/example/se.py" \
@@ -117,11 +125,13 @@ do
                 --cpu-clock=1.6GHz\
                 --cpu-type=O3_ARM_v7a_3 -n 1\
                 --maxinsts=$maxInst\
-                --bench $sims
-            y=$(($y+1))
+                --bench $sims         
         done
-        x=$(($x+1))
+        echo "///////////////////////////////////////////////////////////////////////////////////////////\n"
+        y=$(($y+1))
+        
     done
+    x=$(($x+1))
 done
 
 #RESTORE GEM5 BEFORE LEAVING
@@ -133,4 +143,3 @@ cp $BACKUP_PATH$TIMESTAMP/slru_rp.cc             $SLRU_CC_FILE
 cp $BACKUP_PATH$TIMESTAMP/SConscript             $SCON_FILE
 #BUILD GEM5 with new values
 scons $GEM5_PATH"build/ARM/gem5.opt -j "$coresUse
-
